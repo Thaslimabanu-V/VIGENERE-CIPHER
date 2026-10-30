@@ -30,7 +30,64 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+Name: Thaslima Banu V
+reg.no:26018475
+
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+    char plaintext[500], keyword[100], ciphertext[500];
+    size_t keyLength, keyIndex = 0;
+
+    printf("Enter the plaintext: ");
+    fgets(plaintext, sizeof plaintext, stdin);
+    plaintext[strcspn(plaintext, "\n")] = '\0';
+
+    printf("Enter the keyword: ");
+    fgets(keyword, sizeof keyword, stdin);
+    keyword[strcspn(keyword, "\n")] = '\0';
+
+    keyLength = strlen(keyword);
+
+    if (keyLength == 0)
+        return 1;
+
+    for (size_t i = 0; i < keyLength; i++) {
+        if (!isalpha((unsigned char)keyword[i]))
+            return 1;
+
+        keyword[i] = toupper((unsigned char)keyword[i]);
+    }
+
+    for (size_t i = 0; plaintext[i] != '\0'; i++) {
+        unsigned char ch = (unsigned char)plaintext[i];
+
+        if (isalpha(ch)) {
+            int p = toupper(ch) - 'A';
+            int k = keyword[keyIndex % keyLength] - 'A';
+
+            ciphertext[i] = 'A' + (p + k) % 26;
+            keyIndex++;
+        }
+        else {
+            ciphertext[i] = ch;
+        }
+    }
+
+    ciphertext[strlen(plaintext)] = '\0';
+
+    printf("Ciphertext: %s\n", ciphertext);
+
+    return 0;
+}
+```
 
 ## OUTPUT
+<img width="1005" height="233" alt="image" src="https://github.com/user-attachments/assets/f2e8365a-3f22-401e-a1a3-18f813a097e1" />
+
 
 ## RESULT
+The implement of Vigenere Cipher substitution technique using C program is successful.
